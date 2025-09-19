@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import assets from '../assets/assets'
-import { formatMessageTime } from '../lib/utils'
+import { formatMessageTime } from '../lib/utils';
 import { useContext } from 'react'
 import { ChatContext } from '../../context/ChatContext'
 import { AuthContext } from '../../context/AuthContext'

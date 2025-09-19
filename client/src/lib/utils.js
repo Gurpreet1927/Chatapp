@@ -9,18 +9,17 @@
 
 // utils.js
 
-// API URL for development vs production
-const API_URL =
-  import.meta.env.PROD
-    ? 'https://your-backend-domain.com/api'  // deployed backend
-    : 'http://localhost:5000/api';          // local backend
+// src/lib/utils.js
 
-// Auth API functions
+export const API_URL = import.meta.env.PROD
+  ? 'https://your-backend-domain.com/api'
+  : 'http://localhost:5000/api';
+
 export const login = async (data) => {
   const res = await fetch(`${API_URL}/auth/login`, {
     method: 'POST',
-    body: JSON.stringify(data),
     headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
   });
   return res.json();
 };
@@ -28,17 +27,17 @@ export const login = async (data) => {
 export const signup = async (data) => {
   const res = await fetch(`${API_URL}/auth/signup`, {
     method: 'POST',
-    body: JSON.stringify(data),
     headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
   });
   return res.json();
 };
 
-// Format message time (24-hour format)
+// ✅ Add this export
 export function formatMessageTime(date) {
-  return new Date(date).toLocaleTimeString("en-US", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false, // ✅ must be boolean
+  return new Date(date).toLocaleTimeString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
   });
 }
