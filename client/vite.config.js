@@ -22,7 +22,10 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
-  base: '/chat/',  // GitHub repo name for Pages
+  base: '/',  // GitHub Pages source is docs folder
+  build: {
+    outDir: 'docs',
+  },
   plugins: [react(), tailwindcss()],
   server: {
     // eslint-disable-next-line no-undef
