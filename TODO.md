@@ -9,4 +9,9 @@
 
 - [x] Add import for 'path' module in server/server.js
 - [x] Add express.static middleware to serve 'docs' directory at '/chat' path in server/server.js
-- [ ] Restart the server and verify that CSS and JS files load without 404 errors
+- [x] Update base path in client/vite.config.js to '/chat/' for GitHub Pages
+- [x] Set build outDir to 'docs' in client/vite.config.js
+- [x] Create root package.json with build script
+- [ ] Run npm run build from root to rebuild client
+- [ ] Commit and push the updated docs/ folder to GitHub to redeploy
+- [ ] Verify that CSS and JS files load without 404 errors on GitHub Pages

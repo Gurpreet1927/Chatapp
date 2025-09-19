@@ -22,7 +22,7 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
-  base: '/',  // GitHub Pages source is docs folder
+  base: '/chat/',  // GitHub repo name for Pages
   build: {
     outDir: 'docs',
   },
