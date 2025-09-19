@@ -16,13 +16,12 @@ export const AuthProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
   const [blockedUsers, setBlockedUsers] = useState([]);
 
-useEffect(() => {
-  if (token) {
-    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    checkAuth();
-  }
-}, [token]);
-
+  useEffect(() => {
+    if (token) {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      checkAuth();
+    }
+  }, [token]);
 
   const checkAuth = async () => {
     try {
@@ -37,7 +36,6 @@ useEffect(() => {
         connectSocket(data.user);
         fetchBlockedUsers();
       } else {
-        // If not success, clear token
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         setToken(null);
@@ -45,13 +43,11 @@ useEffect(() => {
         delete axios.defaults.headers.common["Authorization"];
       }
     } catch {
-      // If error, clear token
       localStorage.removeItem("token");
       localStorage.removeItem("user");
       setToken(null);
       setAuthUser(null);
       delete axios.defaults.headers.common["Authorization"];
-      // Don't show error toast for checkAuth failure
     }
   };
 
@@ -75,14 +71,10 @@ useEffect(() => {
       const { data } = await axios.post(`/api/auth/${state}`, credentials);
       if (data.success) {
         setAuthUser(data.userData);
-
-        // Save token
         axios.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
         setToken(data.token);
         localStorage.setItem("token", data.token);
-
-         localStorage.setItem("user", JSON.stringify(data.userData));
-
+        localStorage.setItem("user", JSON.stringify(data.userData));
         connectSocket(data.userData);
         toast.success(data.message);
       } else {
@@ -104,31 +96,28 @@ useEffect(() => {
   };
 
   const updateProfile = async (profileData) => {
-  try {
-    const { data } = await axios.put("/api/auth/update-profile", profileData, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
+    try {
+      const { data } = await axios.put("/api/auth/update-profile", profileData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
 
-    if (data.success) {
-      setAuthUser(data.user);
-
-      // persist updated user
-      localStorage.setItem("user", JSON.stringify(data.user));
-
-      toast.success("Profile updated successfully!");
-      return true;
-    } else {
-      toast.error(data.message || "Update failed");
+      if (data.success) {
+        setAuthUser(data.user);
+        localStorage.setItem("user", JSON.stringify(data.user));
+        toast.success("Profile updated successfully!");
+        return true;
+      } else {
+        toast.error(data.message || "Update failed");
+        return false;
+      }
+    } catch (err) {
+      console.error("Profile update failed:", err);
+      toast.error(err.response?.data?.message || err.message);
       return false;
     }
-  } catch (err) {
-    console.error("Profile update failed:", err);
-    toast.error(err.response?.data?.message || err.message);
-    return false;
-  }
-};
+  };
 
   const connectSocket = (userData) => {
     if (!userData || socket?.connected) return;
@@ -157,7 +146,7 @@ useEffect(() => {
       });
       if (data.success) {
         toast.success(data.message);
-        setBlockedUsers(prev => [...prev, { _id: userId }]); // Add to blocked list
+        setBlockedUsers(prev => [...prev, { _id: userId }]);
         return true;
       } else {
         toast.error(data.message || "Failed to block user");
@@ -178,7 +167,7 @@ useEffect(() => {
       });
       if (data.success) {
         toast.success(data.message);
-        setBlockedUsers(prev => prev.filter(user => user._id !== userId)); // Remove from blocked list
+        setBlockedUsers(prev => prev.filter(user => user._id !== userId));
         return true;
       } else {
         toast.error(data.message || "Failed to unblock user");
@@ -205,4 +194,3 @@ useEffect(() => {
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
-
