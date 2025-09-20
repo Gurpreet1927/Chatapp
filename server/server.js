@@ -111,7 +111,11 @@ io.on("connection", (socket) => {
 app.use(express.json({ limit: "4mb" }));
 app.use(cors());
 
-app.use("/chat", express.static(path.join(process.cwd(), "docs")));
+app.use(express.static(path.join(process.cwd(), "client/dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(process.cwd(), "client/dist/index.html"));
+});
 
 app.use("/api/status", (req, res) => res.send("server is live"));
 app.use("/api/auth", userRouter);
