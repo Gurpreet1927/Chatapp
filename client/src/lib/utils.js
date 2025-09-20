@@ -13,7 +13,7 @@
 
 export const API_URL = import.meta.env.PROD
   ? 'https://your-backend-domain.com/api'
-  : 'http://localhost:5000/api';
+  : 'https://chatapp-6cix.onrender.com';
 
 export const login = async (data) => {
   const res = await fetch(`${API_URL}/auth/login`, {

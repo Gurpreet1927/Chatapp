@@ -9,7 +9,7 @@
 //   server: {
 //     proxy: {
 //       '/api': {
-//         target: 'http://localhost:5000',
+//         target: 'https://chatapp-6cix.onrender.com',
 //         changeOrigin: true,
 //         secure: false,
 //       },
@@ -29,7 +29,7 @@ export default defineConfig({
     hmr: process.env.NODE_ENV === 'development', // disable HMR in production
     proxy: {
       '/api': {
-        target: 'http://localhost:5000',
+        target: 'https://chatapp-6cix.onrender.com',
         changeOrigin: true,
         secure: false,
       },
