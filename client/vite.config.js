@@ -22,7 +22,7 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
-  base: '/chatapp/',  // GitHub repo name for Pages
+  base: '/Chatapp/',  // GitHub repo name for Pages
   build: {
     outDir: '../docs',
   },
